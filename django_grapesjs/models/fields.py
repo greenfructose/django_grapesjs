@@ -13,15 +13,14 @@ __all__ = (
 class GrapesJsHtmlField(models.TextField):
     """
     Model field with support grapesjs.
+
     """
 
     def __init__(self, *args, default_html=GRAPESJS_DEFAULT_HTML, redactor_config=BASE,
                  apply_django_tag=False, validate_tags=False, template_choices=None, **kwargs):
         super().__init__(*args, **kwargs)
         if kwargs.get('choices'):
-            raise ValueError(
-                "use 'template_choices' instead of 'choices' in the '%s'" % self.__class__.__name__
-            )
+            kwargs["template_choices"] = kwargs["choices"]
 
         if self.check_template_choices(template_choices):
             default_html = template_choices[0][0]
