@@ -42,6 +42,7 @@
 {% endblock %}
 
 {% block admin_change_form_document_ready %}{{ block.super }}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
     function getCssGrapesjs(value, css) {
         regexStyle = /(<style grapesjs type=.+)((\s+)|(\S+)|(\r+)|(\n+))(.+)((\s+)|(\S+)|(\r+)|(\n+))(<\/style>)/g;
@@ -107,5 +108,12 @@
             setHtmlInTheField()
         });
     })(django.jQuery);
+
+    $(document).on("keydown", ":input:not(textarea)", function(event) {
+        if (event.key == "Enter") {
+            event.preventDefault();
+        }
+    });
+
 </script>
 {% endblock %}

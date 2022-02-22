@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.utils.text import slugify
 
@@ -17,6 +18,8 @@ class Block(models.Model):
         self.slug = slugify(self.name)
         if not str(self.file_path)[-1] == '/':
             self.file_path = str(self.file_path) + '/'
+        if not os.path.exists(str(self.file_path)):
+            os.makedirs(str(self.file_path))
         with open(f'{self.file_path}{self.slug}.html', 'w+') as f:
             f.write(str(self.html))
         super(Block, self).save(*args, **kwargs)
